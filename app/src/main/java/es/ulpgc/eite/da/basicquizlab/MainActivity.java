@@ -1,36 +1,36 @@
 package es.ulpgc.eite.da.basicquizlab;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-  /*
   private Button falseButton, trueButton,cheatButton, nextButton;
   private TextView questionText, replyText;
 
   private String[] questionArray;
   private int questionIndex=0;
   private int[] replyArray;
-  */
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    /*
     initLayoutData();
-
     linkLayoutComponents();
+
     initLayoutContent();
-    */
   }
 
-  /*
+  // metodo para cargar los datos de pantalla
   private void initLayoutData() {
+    // preguntas cuestionario cargadas desde fichero de recursos
     questionArray=getResources().getStringArray(R.array.question_array);
+    // respuestas cuestionario cargadas desde fichero de recursos
     replyArray=getResources().getIntArray(R.array.reply_array);
   }
 
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     replyText = findViewById(R.id.replyText);
   }
 
+
+
   private void initLayoutContent() {
     falseButton.setText(R.string.false_button_text);
     trueButton.setText(R.string.true_button_text);
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     replyText.setText(R.string.empty_text);
 
   }
+
+  /*
 
   //TODO: en vez de usar un metodo para cada boton, podemos
   // hacerlo usando un solo metodo para todos los botones

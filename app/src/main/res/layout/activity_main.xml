@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--
+
     <TextView
         android:id="@+id/questionText"
         android:layout_width="wrap_content"
@@ -77,12 +77,11 @@
 
         <Button
             android:id="@+id/nextButton"
-            android:onClick="onNextButtonClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onNextButtonClick"
             android:text="Button"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:text="Next" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Space
             android:visibility="gone"
@@ -100,6 +99,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             tools:text="Cheat" />
     </LinearLayout>
-    -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
