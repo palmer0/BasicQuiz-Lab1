@@ -85,16 +85,6 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  /*
-  public void onNextButtonClick(View view) {
-    questionIndex++;
-
-    //initLayoutContent();
-
-    questionText.setText(questionArray[questionIndex]);
-    replyText.setText(R.string.empty_text);
-  }
-  */
 
 
   //TODO: impedir que podamos hacer click en el boton
