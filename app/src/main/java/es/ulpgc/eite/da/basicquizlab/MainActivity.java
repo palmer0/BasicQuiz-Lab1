@@ -85,8 +85,36 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  /*
   public void onNextButtonClick(View view) {
+    questionIndex++;
+
+    //initLayoutContent();
+
+    questionText.setText(questionArray[questionIndex]);
+    replyText.setText(R.string.empty_text);
   }
+  */
+
+
+  //TODO: impedir que podamos hacer click en el boton
+  // si aun no hemos contestado a la pregunta
+  public void onNextButtonClick(View view) {
+    questionIndex++;
+
+    // hacemos que si llegamos al final del quiz
+    // volvamos a empezarlo nuevamente
+    //TODO: refactorizar en un método este codigo
+    // por si queremos implementar otras opciones posibles
+    if(questionIndex == questionArray.length) {
+      questionIndex=0;
+    }
+
+    //TODO: refactorizar en un método este codigo repetido
+    questionText.setText(questionArray[questionIndex]);
+    replyText.setText(R.string.empty_text);
+  }
+
 
   /*
 
@@ -111,24 +139,6 @@ public class MainActivity extends AppCompatActivity {
   //TODO: implementar boton para pasar a siguiente pantalla
   public void onCheatButtonClick(View view) {
     // no implementado
-  }
-
-  //TODO: impedir que podamos hacer click en el boton
-  // si aun no hemos contestado a la pregunta
-  public void onNextButtonClick(View view) {
-    questionIndex++;
-
-    // hacemos que si llegamos al final del quiz
-    // volvamos a empezarlo nuevamente
-    //TODO: refactorizar en un método este codigo
-    // por si queremos implementar otras opciones posibles
-    if(questionIndex == questionArray.length) {
-      questionIndex=0;
-    }
-
-    //TODO: refactorizar en un método este codigo repetido
-    questionText.setText(questionArray[questionIndex]);
-    replyText.setText(R.string.empty_text);
   }
   */
 
