@@ -1,31 +1,9 @@
 package es.ulpgc.eite.da.basicquizlab.test;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import android.app.Activity;
-import android.content.Intent;
-
-import androidx.test.rule.ActivityTestRule;
-
-import org.junit.Rule;
-
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import es.ulpgc.eite.da.basicquizlab.MainActivity;
-
 @SuppressWarnings("ALL")
 public class QuizSteps {
 
-
+  /*
   @Rule
   public ActivityTestRule<MainActivity> testRule =
       new ActivityTestRule(MainActivity.class, true, false);
@@ -88,6 +66,6 @@ public class QuizSteps {
     onView(withId(R.id.nextButton)).check(matches(isDisplayed()));
     onView(withId(R.id.nextButton)).perform(click());
   }
-
+  */
 
 }
