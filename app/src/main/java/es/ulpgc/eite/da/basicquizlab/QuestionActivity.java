@@ -32,6 +32,13 @@ public class QuestionActivity extends AppCompatActivity {
     nextButton.setEnabled(false);
   }
 
+  private void updateButtonsStatus() {
+    nextButton.setEnabled(nextButtonEnabled);
+    trueButton.setEnabled(!nextButtonEnabled);
+    falseButton.setEnabled(!nextButtonEnabled);
+    cheatButton.setEnabled(!nextButtonEnabled);
+  }
+
   private void initLayoutData() {
     questionArray=getResources().getStringArray(R.array.question_array);
     replyArray=getResources().getIntArray(R.array.reply_array);
@@ -104,11 +111,15 @@ public class QuestionActivity extends AppCompatActivity {
       replyText.setText(R.string.incorrect_text);
     }
 
-    //nextButtonEnabled = true;
-    nextButton.setEnabled(true);
-    trueButton.setEnabled(false);
-    falseButton.setEnabled(false);
-    cheatButton.setEnabled(false);
+    nextButtonEnabled = true;
+    updateButtonsStatus();
+
+    /*
+    nextButton.setEnabled(nextButtonEnabled);
+    trueButton.setEnabled(!nextButtonEnabled);
+    falseButton.setEnabled(!nextButtonEnabled);
+    cheatButton.setEnabled(!nextButtonEnabled);
+    */
   }
 
   //TODO: impedir que podamos hacer click en el boton
@@ -127,11 +138,15 @@ public class QuestionActivity extends AppCompatActivity {
       replyText.setText(R.string.incorrect_text);
     }
 
-    //nextButtonEnabled = true;
-    nextButton.setEnabled(true);
-    trueButton.setEnabled(false);
-    falseButton.setEnabled(false);
-    cheatButton.setEnabled(false);
+    nextButtonEnabled = true;
+    updateButtonsStatus();
+
+    /*
+    nextButton.setEnabled(nextButtonEnabled);
+    trueButton.setEnabled(!nextButtonEnabled);
+    falseButton.setEnabled(!nextButtonEnabled);
+    cheatButton.setEnabled(!nextButtonEnabled);
+    */
   }
 
   //TODO: implementar boton para pasar a siguiente pantalla
@@ -149,11 +164,15 @@ public class QuestionActivity extends AppCompatActivity {
     }
     */
 
-    //nextButtonEnabled = false;
-    nextButton.setEnabled(false);
-    trueButton.setEnabled(true);
-    falseButton.setEnabled(true);
-    cheatButton.setEnabled(true);
+    nextButtonEnabled = false;
+    updateButtonsStatus();
+
+    /*
+    nextButton.setEnabled(nextButtonEnabled);
+    trueButton.setEnabled(!nextButtonEnabled);
+    falseButton.setEnabled(!nextButtonEnabled);
+    cheatButton.setEnabled(!nextButtonEnabled);
+    */
     questionIndex++;
 
     // si queremos que el quiz acabe al llegar
