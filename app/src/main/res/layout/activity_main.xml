@@ -7,13 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <TextView
         android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="TextView"
+        android:text="@string/empty_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +31,9 @@
 
         <Button
             android:id="@+id/trueButton"
-            android:onClick="onTrueButtonClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="@string/true_button_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Space
@@ -45,10 +43,9 @@
 
         <Button
             android:id="@+id/falseButton"
-            android:onClick="onFalseButtonClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="@string/false_button_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
@@ -57,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="TextView"
+        android:text="@string/empty_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,9 +76,9 @@
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onNextButtonClick"
-            android:text="Button"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:text="@string/next_button_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Next" />
 
         <Space
             android:visibility="gone"
@@ -92,13 +89,10 @@
         <Button
             android:id="@+id/cheatButton"
             android:visibility="gone"
-            android:onClick="onCheatButtonClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="@string/cheat_button_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             tools:text="Cheat" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

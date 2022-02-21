@@ -15,26 +15,25 @@ public class MainActivity extends AppCompatActivity {
   private String[] questionArray;
   private int questionIndex=0;
   private int[] replyArray;
+  private boolean nextButtonEnabled;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    getSupportActionBar().setTitle(R.string.question_title);
+
     initLayoutData();
     linkLayoutComponents();
-
     initLayoutContent();
+    enableLayoutButtons();
   }
 
-  // metodo para cargar los datos de pantalla
   private void initLayoutData() {
-    // preguntas cuestionario cargadas desde fichero de recursos
     questionArray=getResources().getStringArray(R.array.question_array);
-    // respuestas cuestionario cargadas desde fichero de recursos
     replyArray=getResources().getIntArray(R.array.reply_array);
   }
-
 
   private void linkLayoutComponents() {
     falseButton = findViewById(R.id.falseButton);
@@ -46,90 +45,114 @@ public class MainActivity extends AppCompatActivity {
     replyText = findViewById(R.id.replyText);
   }
 
-
-
   private void initLayoutContent() {
-    falseButton.setText(R.string.false_button_text);
-    trueButton.setText(R.string.true_button_text);
-    nextButton.setText(R.string.next_button_text);
-    cheatButton.setText(R.string.cheat_button_text);
-
-    //TODO: refactorizar en un método este codigo repetido
     questionText.setText(questionArray[questionIndex]);
     replyText.setText(R.string.empty_text);
+  }
 
+  private void enableLayoutButtons() {
+
+    trueButton.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        onTrueButtonClicked(v);
+      }
+    });
+
+    falseButton.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        onFalseButtonClicked(v);
+      }
+    });
+
+    nextButton.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        onNextButtonClicked(v);
+      }
+    });
+
+    cheatButton.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        onCheatButtonClicked(v);
+      }
+    });
   }
 
 
   //TODO: impedir que podamos hacer click en el boton
   // si ya hemos contestado a la pregunta
-  public void onTrueButtonClick(View view) {
+  private void onTrueButtonClicked(View v) {
+
+    if(nextButtonEnabled) {
+      return;
+    }
+
     if(replyArray[questionIndex] == 1) {
-      // correct
       replyText.setText(R.string.correct_text);
     } else {
-      // incorrect
       replyText.setText(R.string.incorrect_text);
     }
+
+    nextButtonEnabled = true;
   }
 
   //TODO: impedir que podamos hacer click en el boton
   // si ya hemos contestado a la pregunta
-  public void onFalseButtonClick(View view) {
+  private void onFalseButtonClicked(View v) {
+
+    if(nextButtonEnabled) {
+      return;
+    }
+
     if(replyArray[questionIndex] == 0) {
-      // correct
       replyText.setText(R.string.correct_text);
     } else {
-      // incorrect
       replyText.setText(R.string.incorrect_text);
     }
+
+    nextButtonEnabled = true;
   }
 
-
+  //TODO: implementar boton para pasar a siguiente pantalla
+  private void onCheatButtonClicked(View v) {
+    // no implementado
+  }
 
   //TODO: impedir que podamos hacer click en el boton
   // si aun no hemos contestado a la pregunta
-  public void onNextButtonClick(View view) {
+  private void onNextButtonClicked(View v) {
+
+    if(!nextButtonEnabled) {
+      return;
+    }
+
+    nextButtonEnabled = false;
     questionIndex++;
+
+    // si queremos que el quiz acabe al llegar
+    // a la ultima pregunta debemos comentar esta linea
+    checkIndexData();
+
+    if(questionIndex < questionArray.length) {
+      initLayoutContent();
+    }
+  }
+
+  //TODO: refactorizar en un método este codigo
+  // por si queremos implementar otras opciones posibles
+  private void checkIndexData() {
 
     // hacemos que si llegamos al final del quiz
     // volvamos a empezarlo nuevamente
-    //TODO: refactorizar en un método este codigo
-    // por si queremos implementar otras opciones posibles
     if(questionIndex == questionArray.length) {
       questionIndex=0;
     }
-
-    //TODO: refactorizar en un método este codigo repetido
-    questionText.setText(questionArray[questionIndex]);
-    replyText.setText(R.string.empty_text);
   }
-
-
-  /*
-
-  //TODO: en vez de usar un metodo para cada boton, podemos
-  // hacerlo usando un solo metodo para todos los botones
-  public void onButtonClick(View view) {
-
-    switch (view.getId()) {
-      case R.id.falseButton:
-        onFalseButtonClick(view);
-      case R.id.trueButton:
-        onTrueButtonClick(view);
-      case R.id.nextButton:
-        onNextButtonClick(view);
-      case R.id.cheatButton:
-        onCheatButtonClick(view);
-    }
-
-  }
-
-
-  //TODO: implementar boton para pasar a siguiente pantalla
-  public void onCheatButtonClick(View view) {
-    // no implementado
-  }
-  */
-
 }

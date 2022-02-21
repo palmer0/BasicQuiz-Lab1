@@ -1,7 +1,7 @@
 Feature: Quiz
 
   @quiz-feature
-  Scenario Outline: responder a pregunta en  Question
+  Scenario Outline: responder a pregunta en pantalla Question
 
     Given iniciar pantalla Question
     And mostrar pregunta "<question>"
@@ -20,7 +20,7 @@ Feature: Quiz
 
 
 #  @quiz-feature
-#  Scenario Outline: pasar a  Cheat sin responder a pregunta en  Question
+#  Scenario Outline: pasar a pantalla Cheat sin responder a pregunta en pantalla Question
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question>"
@@ -40,7 +40,7 @@ Feature: Quiz
 
 
 #  @quiz-feature
-#  Scenario Outline: volver a  Question sin mostrar respuesta en  Cheat
+#  Scenario Outline: volver a pantalla Question sin mostrar respuesta en pantalla Cheat
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question>"
@@ -66,7 +66,7 @@ Feature: Quiz
 
 
 #  @quiz-feature
-#  Scenario Outline: mostrar respuesta en  Cheat
+#  Scenario Outline: mostrar respuesta en pantalla Cheat
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question>"
@@ -89,7 +89,7 @@ Feature: Quiz
 
 
 #  @quiz-feature
-#  Scenario Outline: volver a  Question mostrando respuesta en  Cheat
+#  Scenario Outline: volver a pantalla Question mostrando respuesta en pantalla Cheat
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question1>"
@@ -118,7 +118,7 @@ Feature: Quiz
 
 
   @quiz-feature
-  Scenario Outline: pasar a siguiente pregunta en  Question
+  Scenario Outline: pasar a siguiente pregunta en pantalla Question
 
     Given iniciar pantalla Question
     And mostrar pregunta "<question1>"
