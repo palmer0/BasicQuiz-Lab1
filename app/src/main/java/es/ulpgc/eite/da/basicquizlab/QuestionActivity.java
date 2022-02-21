@@ -1,13 +1,18 @@
 package es.ulpgc.eite.da.basicquizlab;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class QuestionActivity extends AppCompatActivity {
+
+  public static final String TAG = "Quiz.QuestionActivity";
+
+  public static final int CHEAT_REQUEST = 1;
 
   private Button falseButton, trueButton,cheatButton, nextButton;
   private TextView questionText, replyText;
@@ -61,43 +66,32 @@ public class QuestionActivity extends AppCompatActivity {
 
   private void enableLayoutButtons() {
 
+    /*
     trueButton.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View v) {
-        onTrueButtonClicked(v);
+        onTrueButtonClicked();
       }
     });
+    */
 
-    falseButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        onFalseButtonClicked(v);
-      }
+    trueButton.setOnClickListener(v -> {
+      onTrueButtonClicked();
+      // otras sentencias
     });
 
-    nextButton.setOnClickListener(new View.OnClickListener() {
+    falseButton.setOnClickListener(v -> onFalseButtonClicked());
 
-      @Override
-      public void onClick(View v) {
-        onNextButtonClicked(v);
-      }
-    });
+    nextButton.setOnClickListener(v -> onNextButtonClicked());
 
-    cheatButton.setOnClickListener(new View.OnClickListener() {
-
-      @Override
-      public void onClick(View v) {
-        onCheatButtonClicked(v);
-      }
-    });
+    cheatButton.setOnClickListener(v -> onCheatButtonClicked());
   }
 
 
   //TODO: impedir que podamos hacer click en el boton
   // si ya hemos contestado a la pregunta
-  private void onTrueButtonClicked(View v) {
+  private void onTrueButtonClicked() {
 
     /*
     if(nextButtonEnabled) {
@@ -124,7 +118,7 @@ public class QuestionActivity extends AppCompatActivity {
 
   //TODO: impedir que podamos hacer click en el boton
   // si ya hemos contestado a la pregunta
-  private void onFalseButtonClicked(View v) {
+  private void onFalseButtonClicked() {
 
     /*
     if(nextButtonEnabled) {
@@ -149,14 +143,9 @@ public class QuestionActivity extends AppCompatActivity {
     */
   }
 
-  //TODO: implementar boton para pasar a siguiente pantalla
-  private void onCheatButtonClicked(View v) {
-    // no implementado
-  }
-
   //TODO: impedir que podamos hacer click en el boton
   // si aun no hemos contestado a la pregunta
-  private void onNextButtonClicked(View v) {
+  private void onNextButtonClicked() {
 
     /*
     if(!nextButtonEnabled) {
@@ -183,6 +172,51 @@ public class QuestionActivity extends AppCompatActivity {
       initLayoutContent();
     }
   }
+
+
+  //TODO: implementar boton para pasar a siguiente pantalla
+  private void onCheatButtonClicked() {
+
+    /*
+    if(nextButtonEnabled) {
+      return;
+    }
+    */
+
+    Intent intent = new Intent(QuestionActivity.this, CheatActivity.class);
+    //intent.putExtra(CheatActivity.EXTRA_ANSWER, replyArray[questionIndex]);
+    intent.putExtra(CheatActivity.EXTRA_INDEX, questionIndex); // key-value
+    //startActivity(intent);
+    startActivityForResult(intent, CHEAT_REQUEST);
+  }
+
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    Log.d(TAG, "onActivityResult()");
+
+    if (requestCode == CHEAT_REQUEST) {
+      if (resultCode == RESULT_OK) {
+
+        boolean answerCheated =
+            data.getBooleanExtra(CheatActivity.EXTRA_CHEATED, false);
+
+        Log.d(TAG, "answerCheated: " + answerCheated);
+
+
+        // avanzar a siguiente pregunta
+        if(answerCheated) {
+          nextButtonEnabled = true;
+          onNextButtonClicked();
+        }
+
+
+      }
+    }
+  }
+
 
   //TODO: refactorizar en un método este codigo
   // por si queremos implementar otras opciones posibles
