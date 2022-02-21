@@ -1,16 +1,23 @@
 package es.ulpgc.eite.da.basicquizlab.test;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.not;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.RemoteException;
 
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
 
 import org.junit.Rule;
 
@@ -20,33 +27,66 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import es.ulpgc.eite.da.basicquizlab.MainActivity;
+import es.ulpgc.eite.da.basicquizlab.QuestionActivity;
 import es.ulpgc.eite.da.basicquizlab.R;
 
 @SuppressWarnings("ALL")
 public class QuizSteps {
 
+  private static final int DELAY_IN_SECS = 0 * 1000;
+
   @Rule
-  public ActivityTestRule<MainActivity> testRule =
-      new ActivityTestRule(MainActivity.class, true, false);
+  public ActivityTestRule<QuestionActivity> testRule =
+      new ActivityTestRule(QuestionActivity.class, true, false);
 
   private Activity activity;
 
 
   @Before("@quiz-feature")
   public void setUp() {
+
+    try {
+
+      UiDevice device = UiDevice.getInstance(getInstrumentation());
+      device.setOrientationNatural();
+
+    } catch (RemoteException e) {
+    }
+
     testRule.launchActivity(new Intent());
     activity = testRule.getActivity();
   }
 
   @After("@quiz-feature")
   public void tearDown() {
+
+    try {
+
+      UiDevice device = UiDevice.getInstance(getInstrumentation());
+      device.setOrientationNatural();
+
+    } catch (RemoteException e) {
+    }
+
     testRule.finishActivity();
   }
 
 
   @Given("^iniciar pantalla Question$")
   public void iniciarPantallaQuestion() {
+
+    /*
+    try {
+      UiDevice device = UiDevice.getInstance(getInstrumentation());
+      device.setOrientationNatural();
+    } catch (RemoteException e) {
+    }
+    */
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
 
   }
 
@@ -58,36 +98,13 @@ public class QuizSteps {
 
   @And("^ocultar resultado$")
   public void ocultarResultado() {
-    //onView(withId(R.id.replyText)).check(matches(not(isDisplayed())));
+    //onView(withId(R.id.questionText)).check(matches(not(isDisplayed())));
     //onView(withId(R.id.replyText)).check(matches(isDisplayed()));
     //onView(withId(R.id.replyText)).check(matches(withText("???")));
     onView(withId(R.id.replyText))
         .check(matches(withText(activity.getString(R.string.empty_text))));
   }
 
-
-  @When("^pulsar boton \"([^\"]*)\"$")
-  public void pulsarBoton(String b) {
-    String tb = activity.getString(R.string.true_button_text);
-    //int button = (b.equals("True")) ? R.id.trueButton : R.id.falseButton;
-    int button = (b.equals(tb)) ? R.id.trueButton : R.id.falseButton;
-    onView(withId(button)).check(matches(isDisplayed()));
-    onView(withId(button)).perform(click());
-  }
-
-  @Then("^mostrar resultado \"([^\"]*)\" a respuesta \"([^\"]*)\"$")
-  public void mostrarResultadoARespuesta(String r, String a) {
-    onView(withId(R.id.replyText)).check(matches(isDisplayed()));
-    onView(withId(R.id.replyText)).check(matches(withText(r)));
-  }
-
-  @When("^pulsar boton Next$")
-  public void pulsarBotonNext() {
-    onView(withId(R.id.nextButton)).check(matches(isDisplayed()));
-    onView(withId(R.id.nextButton)).perform(click());
-  }
-
-  /*
 
   @And("^ocultar respuesta$")
   public void ocultarRespuesta() {
@@ -109,6 +126,27 @@ public class QuizSteps {
     onView(withId(R.id.nextButton)).check(matches(not(isEnabled())));
   }
 
+  @When("^pulsar boton \"([^\"]*)\"$")
+  public void pulsarBoton(String b) {
+
+    String tb = activity.getString(R.string.true_button_text);
+    //int button = (b.equals("True")) ? R.id.trueButton : R.id.falseButton;
+    int button = (b.equals(tb)) ? R.id.trueButton : R.id.falseButton;
+    onView(withId(button)).check(matches(isDisplayed()));
+    onView(withId(button)).perform(click());
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
+  }
+
+  @Then("^mostrar resultado \"([^\"]*)\" a respuesta \"([^\"]*)\"$")
+  public void mostrarResultadoARespuesta(String r, String a) {
+    onView(withId(R.id.replyText)).check(matches(isDisplayed()));
+    onView(withId(R.id.replyText)).check(matches(withText(r)));
+  }
+
   @And("^mostrar botones True y False y Cheat desactivados$")
   public void mostrarBotonesTrueYFalseYCheatDesactivados() {
     onView(withId(R.id.trueButton)).check(matches(not(isEnabled())));
@@ -124,13 +162,24 @@ public class QuizSteps {
 
   @When("^pulsar boton Cheat$")
   public void pulsarBotonCheat() {
+
     onView(withId(R.id.cheatButton)).check(matches(isDisplayed()));
     onView(withId(R.id.cheatButton)).perform(click());
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
   }
 
   @Then("^iniciar pantalla Cheat$")
   public void iniciarPantallaCheat() {
     //getInstrumentation().waitForIdleSync();
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
   }
 
   @And("^mostrar mensaje Warning$")
@@ -153,20 +202,39 @@ public class QuizSteps {
 
     onView(withId(R.id.noButton)).check(matches(isDisplayed()));
     onView(withId(R.id.noButton)).perform(click());
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
   }
 
   @Then("^finalizar pantalla Cheat$")
   public void finalizarPantallaCheat() {
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
   }
 
   @And("^resumir pantalla Question$")
   public void resumirPantallaQuestion() {
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
   }
 
   @When("^pulsar boton Yes$")
   public void pulsarBotonYes() {
+
     onView(withId(R.id.yesButton)).check(matches(isDisplayed()));
     onView(withId(R.id.yesButton)).perform(click());
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
   }
 
   @Then("^mostrar respuesta \"([^\"]*)\" a pregunta \"([^\"]*)\"$")
@@ -179,13 +247,65 @@ public class QuizSteps {
   public void mostrarBotonesYesYNoDesactivados() {
     onView(withId(R.id.yesButton)).check(matches(not(isEnabled())));
     onView(withId(R.id.noButton)).check(matches(not(isEnabled())));
+
   }
 
   @When("^pulsar boton Back$")
   public void pulsarBotonBack() {
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
+
     //getInstrumentation().waitForIdleSync();
     pressBack();
   }
-  */
+
+  @When("^pulsar boton Next$")
+  public void pulsarBotonNext() {
+
+    onView(withId(R.id.nextButton)).check(matches(isDisplayed()));
+    onView(withId(R.id.nextButton)).perform(click());
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
+  }
+
+
+  @When("^girar pantalla$")
+  public void girarPantalla() {
+
+    int orientation = activity.getRequestedOrientation();
+
+//    if(orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+//      orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+//
+//    } else {
+//      orientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+//    }
+//
+//    activity.setRequestedOrientation(orientation);
+
+    try {
+
+      UiDevice device = UiDevice.getInstance(getInstrumentation());
+
+      if(orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+        device.setOrientationNatural();
+
+      } else {
+        device.setOrientationLeft();
+      }
+
+    } catch (RemoteException e) {
+    }
+
+    try {
+      Thread.sleep(DELAY_IN_SECS);
+    } catch (InterruptedException e) {
+    }
+  }
 
 }

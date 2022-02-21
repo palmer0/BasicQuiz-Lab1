@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity {
 
   private Button falseButton, trueButton,cheatButton, nextButton;
   private TextView questionText, replyText;
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_question);
 
     getSupportActionBar().setTitle(R.string.question_title);
 
@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     linkLayoutComponents();
     initLayoutContent();
     enableLayoutButtons();
+
+    nextButton.setEnabled(false);
   }
 
   private void initLayoutData() {
@@ -90,9 +92,11 @@ public class MainActivity extends AppCompatActivity {
   // si ya hemos contestado a la pregunta
   private void onTrueButtonClicked(View v) {
 
+    /*
     if(nextButtonEnabled) {
       return;
     }
+    */
 
     if(replyArray[questionIndex] == 1) {
       replyText.setText(R.string.correct_text);
@@ -100,16 +104,22 @@ public class MainActivity extends AppCompatActivity {
       replyText.setText(R.string.incorrect_text);
     }
 
-    nextButtonEnabled = true;
+    //nextButtonEnabled = true;
+    nextButton.setEnabled(true);
+    trueButton.setEnabled(false);
+    falseButton.setEnabled(false);
+    cheatButton.setEnabled(false);
   }
 
   //TODO: impedir que podamos hacer click en el boton
   // si ya hemos contestado a la pregunta
   private void onFalseButtonClicked(View v) {
 
+    /*
     if(nextButtonEnabled) {
       return;
     }
+    */
 
     if(replyArray[questionIndex] == 0) {
       replyText.setText(R.string.correct_text);
@@ -117,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
       replyText.setText(R.string.incorrect_text);
     }
 
-    nextButtonEnabled = true;
+    //nextButtonEnabled = true;
+    nextButton.setEnabled(true);
+    trueButton.setEnabled(false);
+    falseButton.setEnabled(false);
+    cheatButton.setEnabled(false);
   }
 
   //TODO: implementar boton para pasar a siguiente pantalla
@@ -129,11 +143,17 @@ public class MainActivity extends AppCompatActivity {
   // si aun no hemos contestado a la pregunta
   private void onNextButtonClicked(View v) {
 
+    /*
     if(!nextButtonEnabled) {
       return;
     }
+    */
 
-    nextButtonEnabled = false;
+    //nextButtonEnabled = false;
+    nextButton.setEnabled(false);
+    trueButton.setEnabled(true);
+    falseButton.setEnabled(true);
+    cheatButton.setEnabled(true);
     questionIndex++;
 
     // si queremos que el quiz acabe al llegar

@@ -1,17 +1,17 @@
 Feature: Quiz
 
   @quiz-feature
-  Scenario Outline: responder a pregunta en pantalla Question
+  Scenario Outline: responder a pregunta en Question
 
     Given iniciar pantalla Question
     And mostrar pregunta "<question>"
     And ocultar resultado
-    #And mostrar botones True y False y Cheat activados
-    #And mostrar boton Next desactivado
+    And mostrar botones True y False y Cheat activados
+    And mostrar boton Next desactivado
     When pulsar boton "<button>"
     Then mostrar resultado "<result>" a respuesta "<answer>"
-    #And mostrar botones True y False y Cheat desactivados
-    #And mostrar boton Next activado
+    And mostrar botones True y False y Cheat desactivados
+    And mostrar boton Next activado
 
     Examples:
       | question           | button | answer | result    |
@@ -20,7 +20,7 @@ Feature: Quiz
 
 
 #  @quiz-feature
-#  Scenario Outline: pasar a pantalla Cheat sin responder a pregunta en pantalla Question
+#  Scenario Outline: pasar a Cheat sin responder a pregunta en Question
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question>"
@@ -37,10 +37,10 @@ Feature: Quiz
 #    Examples:
 #      | question          |
 #      | Question #1: True |
-
-
+#
+#
 #  @quiz-feature
-#  Scenario Outline: volver a pantalla Question sin mostrar respuesta en pantalla Cheat
+#  Scenario Outline: volver a Question sin mostrar respuesta en Cheat
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question>"
@@ -63,10 +63,10 @@ Feature: Quiz
 #    Examples:
 #      | question          |
 #      | Question #1: True |
-
-
+#
+#
 #  @quiz-feature
-#  Scenario Outline: mostrar respuesta en pantalla Cheat
+#  Scenario Outline: mostrar respuesta en Cheat
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question>"
@@ -86,10 +86,10 @@ Feature: Quiz
 #    Examples:
 #      | question          | answer |
 #      | Question #1: True | True   |
-
-
+#
+#
 #  @quiz-feature
-#  Scenario Outline: volver a pantalla Question mostrando respuesta en pantalla Cheat
+#  Scenario Outline: volver a Question mostrando respuesta en Cheat
 #
 #    Given iniciar pantalla Question
 #    And mostrar pregunta "<question1>"
@@ -118,22 +118,22 @@ Feature: Quiz
 
 
   @quiz-feature
-  Scenario Outline: pasar a siguiente pregunta en pantalla Question
+  Scenario Outline: pasar a siguiente pregunta en Question
 
     Given iniciar pantalla Question
     And mostrar pregunta "<question1>"
     And ocultar resultado
-    #And mostrar botones True y False y Cheat activados
-    #And mostrar boton Next desactivado
+    And mostrar botones True y False y Cheat activados
+    And mostrar boton Next desactivado
     And pulsar boton "<button>"
     And mostrar resultado "<result>" a respuesta "<answer>"
-    #And mostrar botones True y False y Cheat desactivados
-    #And mostrar boton Next activado
+    And mostrar botones True y False y Cheat desactivados
+    And mostrar boton Next activado
     When pulsar boton Next
     Then mostrar pregunta "<question2>"
     And ocultar resultado
-    #And mostrar botones True y False y Cheat activados
-    #And mostrar boton Next desactivado
+    And mostrar botones True y False y Cheat activados
+    And mostrar boton Next desactivado
 
     Examples:
       | question1         | button  | answer  | result    | question2          |
