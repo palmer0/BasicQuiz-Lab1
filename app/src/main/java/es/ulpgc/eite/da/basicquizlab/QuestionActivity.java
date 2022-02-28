@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -14,13 +15,17 @@ public class QuestionActivity extends AppCompatActivity {
 
   public static final int CHEAT_REQUEST = 1;
 
+  public final static String STATE_INDEX = "STATE_INDEX";
+  public final static String STATE_NEXT = "STATE_NEXT";
+  public final static String STATE_ANSWER = "STATE_ANSWER";
+
   private Button falseButton, trueButton,cheatButton, nextButton;
   private TextView questionText, replyText;
 
   private String[] questionArray;
   private int questionIndex=0;
   private int[] replyArray;
-  private boolean nextButtonEnabled;
+  private boolean nextButtonEnabled, trueButtonEnabled;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +34,44 @@ public class QuestionActivity extends AppCompatActivity {
 
     getSupportActionBar().setTitle(R.string.question_title);
 
+
+    Log.d(TAG, "onCreate()");
+
+    // savedInstanceState != null: si estoy recreando la actividad
+    if (savedInstanceState != null) {
+      questionIndex=savedInstanceState.getInt(STATE_INDEX);
+      nextButtonEnabled=savedInstanceState.getBoolean(STATE_NEXT);
+      trueButtonEnabled=savedInstanceState.getBoolean(STATE_ANSWER);
+    }
+
     initLayoutData();
     linkLayoutComponents();
     updateLayoutContent();
     enableLayoutButtons();
+
+    // si estoy recreando la actividad (no creandola por primera vez)
+    if (savedInstanceState != null) {
+
+      // has contestado a la pregunta
+      if(nextButtonEnabled) {
+
+        if(trueButtonEnabled) { // si has contestado true
+          if(replyArray[questionIndex] == 1) {
+            replyText.setText(R.string.correct_text);
+          } else {
+            replyText.setText(R.string.incorrect_text);
+          }
+
+        } else { // si has contestado false
+          if(replyArray[questionIndex] == 0) {
+            replyText.setText(R.string.correct_text);
+          } else {
+            replyText.setText(R.string.incorrect_text);
+          }
+        }
+      }
+
+    }
   }
 
 
@@ -64,6 +103,7 @@ public class QuestionActivity extends AppCompatActivity {
   private void updateLayoutContent() {
     questionText.setText(questionArray[questionIndex]);
 
+    // if(nextButtonEnabled == false)
     if(!nextButtonEnabled) {
       replyText.setText(R.string.empty_text);
     }
@@ -90,6 +130,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     nextButtonEnabled = true;
+    trueButtonEnabled = true;
     updateLayoutContent();
   }
 
@@ -108,6 +149,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     nextButtonEnabled = true;
+    trueButtonEnabled=false;
     updateLayoutContent();
 
   }
@@ -146,6 +188,48 @@ public class QuestionActivity extends AppCompatActivity {
       }
     }
   }
+
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    Log.d(TAG, "onResume()");
+  }
+
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    Log.d(TAG, "onSaveInstanceState()");
+
+    // indice para acceder a pregunta y respuesta actuales
+    outState.putInt(STATE_INDEX, questionIndex);
+    // boolean para saber si has contestado o no
+    // nextButtonEnabled=true: has contestado a la pregunta
+    // nextButtonEnabled=false: no has contestado a la pregunta
+    outState.putBoolean(STATE_NEXT, nextButtonEnabled);
+    // boolean para saber si has contestado true o false
+    // trueButtonEnabled=true: has contestado true
+    // trueButtonEnabled=false: has contestado false
+    outState.putBoolean(STATE_ANSWER, trueButtonEnabled);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    Log.d(TAG, "onPause()");
+  }
+
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+
+    Log.d(TAG, "onDestroy()");
+  }
+
 
   private void onNextButtonClicked() {
     Log.d(TAG, "onNextButtonClicked()");
